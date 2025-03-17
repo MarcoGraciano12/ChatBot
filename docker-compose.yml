@@ -1,0 +1,8 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile  # Esto apunta al Dockerfile en el directorio backend
+    ports:
+      - "5000:5000"

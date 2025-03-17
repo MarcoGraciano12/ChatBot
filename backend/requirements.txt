@@ -1,0 +1,11 @@
+Flask
+flask-smorest
+marshmallow
+flask-marshmallow
+python-dotenv
+langchain
+langchain-huggingface
+langchain-chroma
+langchain-community
+unstructured
+ollama
