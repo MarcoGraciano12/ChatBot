@@ -11,8 +11,8 @@ const BOT_MSGS = [
 ];
 
 // Icons made by Freepik from www.flaticon.com
-const BOT_IMG = "https://unsplash.com/es/ilustraciones/un-robot-azul-y-blanco-con-fondo-azul-JWex8df0gBQ";
-const PERSON_IMG = "";
+const BOT_IMG = "https://plus.unsplash.com/premium_vector-1727953895370-731b77162e13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODd8fHVzZXJ8ZW58MHx8MHx8fDA%3D";
+const PERSON_IMG = "https://plus.unsplash.com/premium_vector-1728555238545-2b26f9374b8e?q=80&w=2360&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 const BOT_NAME = "BOT";
 const PERSON_NAME = "USER";
 
