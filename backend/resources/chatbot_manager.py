@@ -32,6 +32,8 @@ class QueryModel(MethodView):
         rag = data["rag"]
         level = data["level"]
 
+        print(f">>> Query: {query}\nRAG: {rag}\nLevel:{level}")
+
         # Ahora, ya tenemos `query`, `rag`, y `level` con los valores correctos
 
         try:
