@@ -131,6 +131,10 @@ function appendMessage(name, img, side, text) {
           botMessageText.innerHTML = result;  // Acumula el texto dentro de la misma burbuja
         }
       }
+
+      // Espera un breve momento para permitir la actualización del DOM y luego ajusta el scroll
+      await new Promise(resolve => setTimeout(resolve, 50));
+      msgerChat.scrollTop = msgerChat.scrollHeight;
     }
 }
 
