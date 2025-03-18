@@ -50,21 +50,7 @@ micButton.addEventListener('click', () => {
 });
 
 
-
-const BOT_MSGS = [
-  "Hi, how are you?",
-  "Ohh... I can't understand what you trying to say. Sorry!",
-  "I like to play games... But I don't know how to play!",
-  "Sorry if my answers are not relevant. :))",
-  "I feel sleepy! :("
-];
-
-// Icons made by Freepik from www.flaticon.com
-
-
-
 // Lógica para los elementos del menú
-
 
 // Variables para almacenar las selecciones
 let formatListSelection = null;
@@ -74,11 +60,12 @@ let settingsSelection = null;
 const menuActions = {
   "cleaning_services": () => {
     msgerChat.innerHTML = "";
-    appendMessage(BOT_NAME, BOT_IMG, "left", "Hola, ¡Bienvenido al ChatBot de NextAI Solutions! Anímate y envíame un mensaje. 😄");
+    appendMessage(BOT_NAME, BOT_IMG, "left", "Hola, ¡Bienvenido al ChatBot de NextAI Solutions! 😄");
   },
   "graph_4": async () => {
     try {
       const response = await fetch("http://127.0.0.1:5000/ollama/change-model");
+
       if (!response.ok) throw new Error("Error al obtener modelos");
 
       const data = await response.json();
@@ -121,6 +108,7 @@ function showModelSelectionModal(models) {
 async function changeModel(index) {
   try {
     const response = await fetch("http://127.0.0.1:5000/ollama/change-model", {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ index })
@@ -188,69 +176,10 @@ function createModal(title, options, callback) {
 
   document.body.appendChild(modal);
 }
-
-
-
 // Fin de lógica para los elementos del menú
 
-
-// msgerForm.addEventListener("submit", event => {
-//   console.log(">>> Entrada por texto.")
-//   event.preventDefault();
-
-//   const msgText = msgerInput.value;
-//   if (!msgText) return;
-
-//   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
-// //   botResponse();
-// handleStream();
-//   msgerInput.value = "";
-// });
-
-
-
-function botResponse() {
-
-
-const apiUrl = 'http://127.0.0.1:5000/rag/query';
-
-// Datos que quieres enviar en la solicitud POST
-const dataToSend = {
-  query: msgerInput.value
-};
-
-// Realizar la solicitud POST a la API
-fetch(apiUrl, {
-  method: 'POST', // Cambiamos el método a POST
-  headers: {
-    'Content-Type': 'application/json' // Especificamos que los datos se envían en formato JSON
-  },
-  body: JSON.stringify(dataToSend) // Convertimos los datos a una cadena JSON
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Error en la solicitud');
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Aquí puedes trabajar con los datos recibidos
-    console.log(data);
-    // Por ejemplo, puedes acceder a los resultados así:
-    data.results.forEach(result => {
-      console.log(result);
-      appendMessage(BOT_NAME,BOT_IMG, "left", result)
-    });
-  })
-  .catch(error => {
-    console.error('Hubo un problema con la solicitud:', error);
-  });
-}
-
-
-
 function appendMessage(name, img, side, text) {
-    const msgHTML = `
+  const msgHTML = `
       <div class="msg ${side}-msg ${name === BOT_NAME ? 'bot-msg' : ''}">
         <div class="msg-img" style="background-image: url(${img})"></div>
   
@@ -264,79 +193,70 @@ function appendMessage(name, img, side, text) {
         </div>
       </div>
     `;
-    msgerChat.insertAdjacentHTML("beforeend", msgHTML);
-    msgerChat.scrollTop += 500;
-  }
-
-
-
-  async function handleStream() {
-    // URL de tu API de streaming
-    const apiUrl = 'http://127.0.0.1:5000/ollama';
-
-    // Crear el objeto con los parámetros dinámicos
-    const requestData = { query: msgerInput.value };
-    console.log(">>> Query: ", msgerInput.value);
-
-    // Agregar los valores solo si existen
-    if (formatListSelection !== null) {
-        requestData.rag = formatListSelection + 1;
-        console.log(">>> RAG: ", formatListSelection + 1);
-    }
-    if (settingsSelection !== null) {
-        requestData.level = settingsSelection;
-        console.log(">>> Level: ", settingsSelection);
-    }
-
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestData) 
-    });
-
-    if (!response.ok) {
-      throw new Error('Error en la solicitud');
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let result = '';
-
-    // Crear una nueva burbuja para cada pregunta del usuario (sin sobreescribir la anterior)
-    appendMessage(BOT_NAME, BOT_IMG, 'left', ''); // Crea un mensaje vacío para la respuesta
-
-    // Obtener la nueva burbuja del bot
-    let botMessageElement = document.querySelector('.bot-msg:last-child');
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      // Acumulamos el resultado
-      result += decoder.decode(value, { stream: true });
-
-      // Actualizamos el contenido del mensaje del bot
-      if (botMessageElement) {
-        const botMessageText = botMessageElement.querySelector('.msg-text');
-        if (botMessageText) {
-          botMessageText.innerHTML = result;  // Acumula el texto dentro de la misma burbuja
-        }
-      }
-
-      // Espera un breve momento para permitir la actualización del DOM y luego ajusta el scroll
-      await new Promise(resolve => setTimeout(resolve, 50));
-      msgerChat.scrollTop = msgerChat.scrollHeight;
-    }
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
 }
 
+async function handleStream() {
+  // URL de tu API de streaming
+  const apiUrl = 'http://127.0.0.1:5000/ollama';
 
+  // Crear el objeto con los parámetros dinámicos
+  const requestData = { query: msgerInput.value };
+  console.log(">>> Query: ", msgerInput.value);
 
+  // Agregar los valores solo si existen
+  if (formatListSelection !== null) {
+    requestData.rag = formatListSelection + 1;
+    console.log(">>> RAG: ", formatListSelection + 1);
+  }
+  if (settingsSelection !== null) {
+    requestData.level = settingsSelection;
+    console.log(">>> Level: ", settingsSelection);
+  }
 
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestData)
+  });
 
+  if (!response.ok) {
+    throw new Error('Error en la solicitud');
+  }
 
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let result = '';
 
+  // Crear una nueva burbuja para cada pregunta del usuario (sin sobreescribir la anterior)
+  appendMessage(BOT_NAME, BOT_IMG, 'left', ''); // Crea un mensaje vacío para la respuesta
+
+  // Obtener la nueva burbuja del bot
+  let botMessageElement = document.querySelector('.bot-msg:last-child');
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    // Acumulamos el resultado
+    result += decoder.decode(value, { stream: true });
+
+    // Actualizamos el contenido del mensaje del bot
+    if (botMessageElement) {
+      const botMessageText = botMessageElement.querySelector('.msg-text');
+      if (botMessageText) {
+        botMessageText.innerHTML = result;  // Acumula el texto dentro de la misma burbuja
+      }
+    }
+
+    // Espera un breve momento para permitir la actualización del DOM y luego ajusta el scroll
+    await new Promise(resolve => setTimeout(resolve, 50));
+    msgerChat.scrollTop = msgerChat.scrollHeight;
+  }
+}
 
 // Utils
 function get(selector, root = document) {
@@ -353,10 +273,3 @@ function formatDate(date) {
 function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-
-
-
-
-
-
-// lógica para el microfono

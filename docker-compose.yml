@@ -6,3 +6,9 @@ services:
       dockerfile: Dockerfile  # Esto apunta al Dockerfile en el directorio backend
     ports:
       - "5000:5000"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile  # Esto apunta al Dockerfile en el directorio frontend
+    ports:
+      - "80:80"
