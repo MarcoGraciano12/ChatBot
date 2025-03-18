@@ -12,6 +12,5 @@ DB_DIR = os.path.abspath(DB_DIR)  # Convertimos a ruta absoluta
 
 print(f">>> Buscando base de datos en: {DB_DIR}")
 
-# OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2")
 EMBEDDINGS_MODEL = os.getenv("EMBEDDINGS_MODEL", None)  # Modelo para generar embeddings
 DATABASE = "../knowledge-base"

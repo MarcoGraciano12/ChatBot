@@ -46,14 +46,15 @@ class ChatSession:
             print("⚠️ No puedes enviar un mensaje vacío.")
             return
 
-        response_level = ["debes responder de la forma más breve posible, mientras menos palabras mejor.",
+        response_level = ["debes acortar y simplificar tu respuesta lo más posible.",
                           "debes responder de forma directa y no tan extenso.",
                           "debes de proporcionar una respuesta expandida y sin inventar nada."]
 
         db_consult = "\n".join(self.rag_handler.query_db(query,rag))
 
-        contexto = ("Eres un asistente virutal de Grupo Fórmula. El usuario te hará una pregunta y deberás"
-                    " responder con base al contexto y nada más. El contexto que necesitas para responder la pregunta es"
+        contexto = ("Eres un asistente virutal que pertenece a Grupo Fórmula. "
+                    "El usuario te hará una pregunta y deberás responder solamente con base al contexto que se te"
+                    "proporciona. El contexto que necesitas para responder la pregunta es"
                     f": {db_consult}. Recuerda: {response_level[level]}")
         try:
             response = self.ollama_instance.client.chat(

@@ -1,9 +1,6 @@
 from flask import Flask
 from flask_smorest import Api
-from resources.test import blp as TestBlueprint
 from resources.rag import blp as RagBlueprint
-from resources.rag import queso as Queso
-from resources.ollama_models import blp as OllamaBluePrint
 from resources.chatbot_manager import blp as ChatBotBluePrint
 from flask_cors import CORS  # Importamos CORS
 
@@ -22,6 +19,4 @@ app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-
 api = Api(app)
 
 api.register_blueprint(RagBlueprint)
-# api.register_blueprint(Queso)
-# api.register_blueprint(OllamaBluePrint)
 api.register_blueprint(ChatBotBluePrint)
