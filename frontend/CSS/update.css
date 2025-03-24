@@ -1,0 +1,485 @@
+.boldonse-regular {
+    font-family: "Boldonse", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.title{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.inter-uniquifier {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
+/* Barra de navegación */
+header {
+    width: 80vw;
+    /* Ajusta el ancho al 100% del viewport */
+    height: 10vh;
+    /* Ajusta la altura al 100% del viewport */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+header p {
+    margin-left: 2%;
+    text-align: center;
+    color: black;
+    top: 3em;
+    font-weight: bold;
+    font-size: x-large;
+    /* background-color: red; */
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    margin-left: 30%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    /* background-color: blue; */
+
+}
+
+
+nav li {
+    margin: 0.5rem;
+    font-size: small;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    list-style-type: none;
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+nav li a {
+    margin: 0.5rem;
+    
+    text-decoration: none;
+
+    list-style-type: none;
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: inherit;
+    /* Esto hará que el enlace tome el color del elemento padre */
+    text-decoration: none;
+    /* Esto quitará la línea subrayada */
+
+}
+
+/* Fin de barra de navegación */
+
+
+
+/*  Globales **/
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    /* Hack para Box Model **/
+    scroll-snap-type: y mandatory;
+    background-color: #e8e8e8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body {
+    font-size: 16px;
+    /* 1rem = 10px */
+    font-family: "PT Sans", sans-serif;
+}
+
+
+
+main {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+main div {
+    height: 80%;
+    width: 60%;
+    margin: 5%;
+
+
+}
+
+
+
+main div:nth-child(2) {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    
+}
+
+.form-format {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+
+
+
+.container-widget {
+
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: .4s ease-in-out;
+    margin-bottom: 2rem;
+}
+
+.container-widget:hover {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    scale: 0.99;
+}
+
+
+.nav_button {
+    cursor: pointer;
+}
+
+
+.nav_button:hover {
+    background-color: #e8e8e8;
+}
+
+
+/* Estilo para el cargador de archivos */
+
+.icon-large {
+    font-size: 60px; /* Tamaño grande */
+}
+.icon-medium {
+    font-size: 36px; /* Tamaño mediano */
+}
+.icon-small {
+    font-size: 24px; /* Tamaño pequeño */
+}
+
+.container {
+    height: 75%;
+    margin-left: 10%;
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 5px;
+    background-color: white;
+}
+
+.header {
+    flex: 1;
+    width: 100%;
+    border: 2px dashed #888888;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header svg {
+    height: 100px;
+}
+
+.header p {
+    text-align: center;
+    color: black;
+}
+
+.footer {
+    background-color: #e8e8e8;
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: black;
+    border: none;
+}
+
+.footer svg {
+    height: 130%;
+    fill: white;
+    /* background-color: rgba(70, 66, 66, 0.103); */
+    border-radius: 50%;
+    padding: 2px;
+    cursor: pointer;
+    /* box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205); */
+}
+
+.footer p {
+    flex: 1;
+    text-align: center;
+}
+
+#file {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Para el formulario */
+.msger-input {
+    width: 100%;
+    border: 2px solid #e8e8e8;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #212121;
+    font-size: small;
+    font-weight: bold;
+    color: #e8e8e8;
+    text-align: center;
+}
+
+
+.msger-input:focus {
+    outline-color: white;
+    background-color: #212121;
+    color: #e8e8e8;
+    border: 2px solid #e8e8e8;
+    box-shadow: 5px 5px #888888;   
+}
+
+
+
+
+
+.msger-send-btn {
+    text-transform: uppercase;
+    width: 40%;
+    border: 3px solid #e8e8e8;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #212121;
+    font-size: small;
+    font-weight: bold;
+    text-align: center;
+    color: #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.msger-send-btn:focus {
+    outline-color: white;
+    background-color: #212121;
+
+    box-shadow: 4px 4px #888888;
+}
+
+
+
+/* Estilos para dispositivos muy pequeños (teléfonos en modo retrato) */
+@media (max-width: 480px) {
+
+
+    header {
+        width: 100%;
+        /* Ajusta el ancho al 100% del viewport */
+        height: 20vh;
+        /* Ajusta la altura al 100% del viewport */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+
+
+    main {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    main div:nth-child(1) {
+
+        margin: 5% 0;
+    }
+
+    main div:nth-child(2) {
+        margin: 0;
+    }
+}
+
+
+/* Estilos para dispositivos pequeños (teléfonos en modo paisaje) */
+@media (min-width: 481px) and (max-width: 630px) {
+
+   
+
+    header {
+        width: 100%;
+        /* Ajusta el ancho al 100% del viewport */
+        height: 20vh;
+        /* Ajusta la altura al 100% del viewport */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    main {
+        width: 100%;
+    }
+
+
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main div:nth-child(1) {
+
+        margin: 5% 0;
+    }
+
+    main div:nth-child(2) {
+        margin: 0;
+    }
+}
+
+
+
+/* Estilos para dispositivos pequeños (teléfonos en modo paisaje) */
+@media (min-width: 631px) and (max-width: 767px) {
+   
+
+
+    header {
+        width: 100%;
+        /* Ajusta el ancho al 100% del viewport */
+        height: 20vh;
+        /* Ajusta la altura al 100% del viewport */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main div:nth-child(1) {
+
+        margin: 5% 0;
+    }
+
+    main div:nth-child(2) {
+        margin: 0;
+    }
+
+    
+}
+
+/* Estilos para dispositivos medianos (tabletas en modo retrato) */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+
+ 
+
+    header {
+        width: 80vw;
+        /* Ajusta el ancho al 100% del viewport */
+        height: 10vh;
+        /* Ajusta la altura al 100% del viewport */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        margin-left: 5%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+
+
+    }
+
+    .msger-send-btn {
+        width: 50%;
+    
+    }
+
+}
+

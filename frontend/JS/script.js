@@ -10,11 +10,19 @@ const msgerInput = document.querySelector('#msgerInput');
 const micButton = document.querySelector('#micButton');
 let recognition;
 let isRecording = false;
+let selectedCategorySelection = null;
+
 
 msgerForm.addEventListener('submit', event => {
   event.preventDefault();
   const msgText = msgerInput.value;
   if (!msgText) return;
+
+  // Verificar si hay categoría seleccionada
+  if (!selectedCategorySelection) {
+    alert("Debes seleccionar una categoría antes de hacer una consulta.");
+    return;
+  }
   appendMessage(PERSON_NAME, PERSON_IMG, 'right', msgText);
   handleStream();
   msgerInput.value = '';
@@ -76,18 +84,76 @@ const menuActions = {
     }
   },
   "format_list_numbered": () => {
-    showNumberSelectionModal("Selecciona un número (1-15)", 1, 15, (value) => {
+    showNumberSelectionModal("Cantidad de coincidencias del RAG", 1, 15, (value) => {
       formatListSelection = value;
       console.log("Valor de format_list_numbered guardado:", formatListSelection);
     });
   },
-  "settings": () => {
-    showNumberSelectionModal("Selecciona un número (1-3)", 1, 3, (value) => {
+  "candlestick_chart": () => {
+    showNumberSelectionModal("Nivel de respuesta del modelo", 1, 3, (value) => {
       settingsSelection = value;
       console.log("Valor de settings guardado:", settingsSelection);
     });
+  },
+  "file_copy": async () => {
+    await fetchCategories();
   }
 };
+
+
+
+// Función para obtener las categorías desde la API
+async function fetchCategories() {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/rag");
+    if (!response.ok) throw new Error("Error al obtener categorías");
+
+    const data = await response.json();
+    if (data.categories && data.categories.length > 0) {
+      showCategorySelectionModal(data.categories);
+    } else {
+      alert("No hay categorías disponibles.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("No se pudieron obtener las categorías.");
+  }
+}
+
+
+
+// Función para mostrar un modal con las categorías disponibles
+function showCategorySelectionModal(categories) {
+  createModal("Selecciona una categoría", categories, (selectedIndex) => {
+    selectedCategorySelection = categories[selectedIndex];
+    console.log("Categoría seleccionada:", selectedCategorySelection);
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Asignar eventos a cada icono del menú basado en `menuActions`
 document.querySelectorAll(".material-symbols-outlined").forEach(icon => {
@@ -103,6 +169,7 @@ function showModelSelectionModal(models) {
     await changeModel(selectedIndex);
   });
 }
+
 
 // Función para cambiar de modelo mediante POST
 async function changeModel(index) {
@@ -198,12 +265,18 @@ function appendMessage(name, img, side, text) {
 }
 
 async function handleStream() {
+  
   // URL de tu API de streaming
   const apiUrl = 'http://127.0.0.1:5000/ollama';
 
   // Crear el objeto con los parámetros dinámicos
-  const requestData = { query: msgerInput.value };
+  const requestData = { 
+    query: msgerInput.value,
+    category: selectedCategorySelection
+  };
+  
   console.log(">>> Query: ", msgerInput.value);
+  console.log(">>> Categoría seleccionada: ", selectedCategorySelection);
 
   // Agregar los valores solo si existen
   if (formatListSelection !== null) {
