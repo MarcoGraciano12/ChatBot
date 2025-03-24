@@ -84,7 +84,7 @@ const menuActions = {
     }
   },
   "format_list_numbered": () => {
-    showNumberSelectionModal("Cantidad de coincidencias del RAG", 1, 15, (value) => {
+    showNumberSelectionModal("Cantidad de coincidencias del RAG", 1, 30, (value) => {
       formatListSelection = value;
       console.log("Valor de format_list_numbered guardado:", formatListSelection);
     });
