@@ -16,7 +16,7 @@ class RAGManager:
         self.model_name = model_name
         self.embeddings = HuggingFaceEmbeddings(model_name=model_name)
         os.makedirs(base_dir, exist_ok=True)
-        self.text_splitter = RecursiveCharacterTextSplitter(chunk_size=150, chunk_overlap=0)
+        self.text_splitter = RecursiveCharacterTextSplitter(chunk_size=256, chunk_overlap=51)
         self.db_path = os.path.join(self.base_dir, "db")
         try:
             self.db = Chroma(persist_directory=self.db_path, embedding_function=self.embeddings)
