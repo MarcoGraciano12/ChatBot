@@ -49,9 +49,9 @@ class ChatSession(RAGManager):
             print("⚠️ No puedes consultar sin especificar la colección.")
             return False
 
-        response_level = ["debes acortar y simplificar tu respuesta lo más posible.",
-                          "debes responder de forma directa y no tan extenso.",
-                          "debes de proporcionar una respuesta expandida y sin inventar nada."]
+        response_level = ["debes acortar y simplificar tu respuesta lo más posible",
+                          "debes responder de forma directa y no tan extenso",
+                          "debes de proporcionar una respuesta expandida y sin inventar nada"]
 
 
 
@@ -60,11 +60,17 @@ class ChatSession(RAGManager):
         print(db_consult)
 
         contexto = f"""
-        Eres un asistente virtual y los usuarios acuden a ti para buscar información, la cual se encuentra en una db 
-        vectorial y con un sistema de rag se te proporcionará, sin embargo, puede que algunos fragmentos estén cortados,
-        debes proporcionar una respuesta con base a los resultados del rag, los cuales son {db_consult}. Recuerda que el 
-        usuario no debe saber que e te ha proporcionado un contexto.
+        Eres un asistente virtual que proporciona respuestas con base a un sistema de RAG, {response_level[level]}.
+        El usuario nunca deberá conocer que se te ha proporcionado un contexto, algunos resultados del RAG están
+        incompletos, por lo que deberá analizar la información recuperada. Los resultados del RAG son: {db_consult}.
         """
+
+        # contexto = f"""
+        # Eres un asistente virtual y los usuarios acuden a ti para buscar información, la cual se encuentra en una db
+        # vectorial y con un sistema de rag se te proporcionará, sin embargo, puede que algunos fragmentos estén cortados,
+        # debes proporcionar una respuesta con base a los resultados del rag, los cuales son {db_consult}. Recuerda que el
+        # usuario no debe saber que e te ha proporcionado un contexto.
+        # """
         try:
             response = self.ollama_instance.client.chat(
                 model=self.model_manager.selected_model,
