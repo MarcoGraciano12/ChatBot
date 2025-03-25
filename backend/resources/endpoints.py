@@ -63,6 +63,9 @@ class Collections(MethodView):
 
 @blp.route("/rag/query")
 class RAGQuery(MethodView):
+    """
+    Clase realizar una consulta al RAG.
+    """
 
     @blp.arguments(PlainQueryRag)
     def post(self, data):
