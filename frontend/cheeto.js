@@ -377,3 +377,41 @@ msgerInput.addEventListener('keydown', event => {
     event.preventDefault();
   }
 });
+
+
+
+// ===============================================================================================================================
+//                                                     Funcionalidad de Entrenamiento
+// ===============================================================================================================================
+document.getElementById('chatbot').addEventListener('click', function() {
+  var chats = document.getElementsByClassName("opcion1");
+  var tools = document.getElementsByClassName("opcion2")[0];
+
+  let chatsVisibles = Array.from(chats).some(chat => chat.style.display !== 'none' && chat.style.display !== '');
+
+  if (chatsVisibles) {
+      // Si hay chats visibles, ocultarlos
+      Array.from(chats).forEach(chat => chat.style.display = 'none');
+  } else {
+      // Si están ocultos, mostrarlos
+      Array.from(chats).forEach(chat => chat.style.display = '');
+  }
+
+  // No ocultar herramientas si ya están visibles en otra acción
+  if (tools.style.display !== 'none') {
+      tools.style.display = 'none';
+  }
+});
+
+document.getElementById('entrenar').addEventListener('click', function() {
+  var chats = document.getElementsByClassName("opcion1");
+  var tools = document.getElementsByClassName("opcion2")[0];
+
+  let toolsVisible = tools.style.display !== 'none' && tools.style.display !== '';
+
+  // Siempre ocultamos los chats al entrenar
+  Array.from(chats).forEach(chat => chat.style.display = 'none');
+
+  // Alternamos la visibilidad de tools
+  tools.style.display = 'flex';
+});

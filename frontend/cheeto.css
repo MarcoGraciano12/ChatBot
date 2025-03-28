@@ -203,7 +203,6 @@ body {
 .menu span {
     width: 20%;
     text-transform: uppercase;
-    font-size: 3rem;
     text-align: center;
     transition: transform 0.4s linear;
 }
@@ -221,7 +220,6 @@ body {
     overflow: hidden;
     transition: opacity 0.4s linear, margin-left 0.4s linear;
 
-    font-size: 1.2rem;
 }
 
 /* Cuando el menú está contraído */
@@ -328,6 +326,11 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
+ 
+}
+
+.option span{
+    font-size: 3rem;
 }
 
 .tooltip {
@@ -694,6 +697,11 @@ input::placeholder {
 /* Estilos para dispositivos pequeños (teléfonos en modo paisaje) */
 @media (min-width: 481px) and (max-width: 630px) {
 
+
+    .option{
+        z-index: 1;
+    }
+
     .header-container {
         height: 12%;
 
@@ -807,6 +815,7 @@ input::placeholder {
 
 /* Estilos para dispositivos pequeños (teléfonos en modo paisaje) */
 @media (min-width: 631px) and (max-width: 767px) {
+  
 
     .menu {
 
@@ -909,3 +918,6 @@ input::placeholder {
 
 
 }
+
+
+
