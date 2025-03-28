@@ -166,6 +166,8 @@ body {
     display: flex;
     flex-direction: column;
 
+    z-index: 1; /* Asegura que el contenedor esté en un nivel superior */
+
 }
 
 .contenedor-apartado {
@@ -895,6 +897,13 @@ input::placeholder {
     .menu p {
 
         font-size: 1.5rem;
+    }
+
+    .contenedor-menu {
+       
+        width: 20%;
+       
+    
     }
 
 

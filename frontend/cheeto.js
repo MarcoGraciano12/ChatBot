@@ -89,7 +89,7 @@ const menuActions = {
     }
   },
   "format_list_numbered": () => {
-    showNumberSelectionModal("Cantidad de coincidencias del RAG", 1, 20, (value) => {
+    showNumberSelectionModal("Precisión del Modelo", 1, 20, (value) => {
       formatListSelection = value;
       console.log("Valor de format_list_numbered guardado:", formatListSelection);
     });
@@ -264,9 +264,9 @@ function showNumberSelectionModal(title, min, max, callback) {
 
 // Función para mostrar un modal con las categorías disponibles
 function showCategorySelectionModal(categories) {
-  createModal("Selecciona una categoría", categories, (selectedIndex) => {
+  createModal("Selecciona un Entrenamiento", categories, (selectedIndex) => {
     selectedCategorySelection = categories[selectedIndex];
-    console.log("Categoría seleccionada:", selectedCategorySelection);
+    console.log("Entrenamiento seleccionada:", selectedCategorySelection);
   });
 }
 
