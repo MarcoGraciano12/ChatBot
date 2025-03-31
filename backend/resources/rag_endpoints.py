@@ -31,7 +31,7 @@ class ModelManager(MethodView):
 
         index = data["index"]
 
-        if index < 1:
+        if index < 0:
             return {"status":False, "response":"El indice debe ser mayor a 0."}
 
         status, response = manager.change_model(index)
