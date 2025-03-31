@@ -462,6 +462,60 @@ class ChatSession:
         """
         return self.db_manager.db_query(query=query, category=category, k=self._model_manager.get_k())
 
+    # Validar configuración del chat
+    def validate_model_settings(self):
+        """
+        Método encargado de validar si todas las opciones de configuración necesarias para interactuar con el chat
+        están configuradas.
+        """
+        category = self._model_manager.get_selected_category()
+
+        if not category:
+            return False, "No se ha seleccionado un entrenamiento."
+
+        model = self._model_manager.get_selected_model()
+
+        if not model:
+            return False, "No se ha seleccionado uno modelo de llm."
+
+        return True, "Todo está listo para consultar el llm."
+
+
+    # Chat con el modelo de Ollama activo en stream
+    def query_ollama_model(self, query):
+        """
+        Método para consultar el modelo de ollama.
+        """
+
+        response = "\n\n".join(self.db_manager.db_query(query, self._model_manager.get_selected_category(),
+                                            self._model_manager.get_k())[1])
+
+        contexto = f"""
+        
+        Eres un asistente virtual muy inteligente y sofisticado.
+        Las personas acuden a ti para satisfacer sus preguntas y dudas.
+        Debes responser de manera directa y lo más breve posible, entre menos palabras tengas tus respuestas, mejor.
+        Para responder a las preguntas, deberás tomar como contexto los resultados obtenidos a través de un
+        sistema RAG, por lo que deberás analizar el contexto y responder de forma precisa.
+        
+        El contexto es:
+        {response}
+        """
+        print(contexto)
+        try:
+            print(query)
+            response = self._model_manager.ollama_instance.client.chat(
+                model=self._model_manager.get_selected_model(),
+                messages=[
+                    {'role': 'system', 'content': contexto},
+                    {'role': 'user', 'content': query},
+                ],
+                stream=True
+            )
+            for chunk in response:
+                yield chunk['message']['content']
+        except Exception as e:
+            print(f"❌ Error al consultar el modelo: {e}")
 
 
 
