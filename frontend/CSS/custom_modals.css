@@ -1,0 +1,309 @@
+
+/*                           Estilo para los modales personalizados                            */
+/* ___________________________________________________________________________________________ */
+
+.modal-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    overflow: hidden;
+    box-shadow: 0 5px 15px 0 #00000026;;
+    background-color: #fff;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 22vw;
+    height: 35vh;
+}
+
+.modal-container:hover{
+    box-shadow: 0 5px 5px 0 #00000026;;
+}
+
+.button{
+    border-width: 0;
+    -webkit-box-shadow: 3px 3px 10px 3px #ddd;
+    -moz-box-shadow: 3px 3px 10px 3px #ddd;
+    box-shadow: 3px 3px 10px 3px #ddd;
+    box-sizing: border-box;
+    cursor: pointer;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition:
+        box-shadow 0.15s,
+        transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    background-color: #364C59;
+    border: none;
+    color: whitesmoke;
+
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(2px);
+}
+
+
+.input-content{
+    margin: 10%;
+    /* background-color: purple; */
+    width: 80%;
+}
+
+.input-content select{
+    width: 100%;
+    text-align: center;
+    padding: .8rem;
+    border: none;
+    border-bottom: .1rem solid #364C59;
+}
+
+.input-content select:focus{
+    outline: none;
+}
+
+.content {
+    margin-top: 0.75rem;
+    text-align: center;
+    /* background-color: gray; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+  }
+  
+  .title {
+    color: #023859;
+    font-size: 2.3rem;
+    /* font-weight: 600; */
+    line-height: 1.5rem;
+    /* background-color: blue; */
+  }
+  
+  .message {
+    margin-top: 0.5rem;
+    color: #364C59;
+    font-size: 1.6rem;
+    line-height: 1.25rem;
+    /* background-color: red; */
+    text-align: center;
+  }
+
+
+  
+  .actions {
+    margin: 0.75rem 1rem;
+    /* background-color: yellowgreen; */
+    width: 90%;
+    height: 30%;
+
+  }
+  
+  .apply {
+    display: inline-flex;
+    padding: 1rem 1rem;
+
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    justify-content: center;
+    width: 100%;
+    text-transform: uppercase;
+  
+   
+  }
+  
+  .cancel {
+    display: inline-flex;
+    margin-top: 1rem;
+    padding: 1rem 1rem;
+
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    justify-content: center;
+    width: 100%;
+    text-transform: uppercase;
+ 
+
+  }
+  
+  @keyframes animate {
+    from {
+      transform: scale(1);
+    }
+  
+    to {
+      transform: scale(1.09);
+    }
+  }
+
+/*             Estilo para los modales personalizados de la sección de entrenamientos          */
+/* ___________________________________________________________________________________________ */
+
+
+
+
+
+
+
+.drop-area-container {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.drop-area-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 80%;
+  width: 80%;
+}
+
+.drop-area-header svg {
+  height: 100px;
+}
+
+.drop-area-header span{
+  color: #023859;
+}
+
+.drop-area-header p {
+  text-align: center;
+}
+
+.drop-area-footer {
+  background-color: #364C59;
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+  /* border-radius: 10px; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: whitesmoke;
+  border: none;
+}
+
+
+.drop-area-footer p {
+  flex: 1;
+  text-align: center;
+}
+
+#file {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* Media Querys */
+/* Estilos para dispositivos muy pequeños (teléfonos en modo retrato) */
+@media (max-width: 480px) {
+
+  .modal-container{
+    width: 48vw;
+    height: 35vh;
+    transform: translate(-50%, -30%);
+}
+
+
+
+}
+
+
+/* Estilos para dispositivos pequeños (teléfonos en modo paisaje) */
+@media (min-width: 481px) and (max-width: 630px) {
+
+
+  .modal-container{
+    width: 42vw;
+    height: 35vh;
+    transform: translate(-50%, -30%);
+}
+
+
+
+}
+
+/* Estilos para dispositivos pequeños (teléfonos en modo paisaje) */
+@media (min-width: 631px) and (max-width: 767px) {
+  
+  .modal-container{
+    width: 34vw;
+    height: 35vh;
+}
+
+
+}
+
+/* Estilos para dispositivos medianos (tabletas en modo retrato) */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+
+  .modal-container{
+    width: 28vw;
+    height: 35vh;
+}
+
+
+
+}
+
+/* Estilos para dispositivos medianos (tabletas en modo retrato) */
+@media (min-width: 1025px) {
+
+    .modal-container{
+    width: 22vw;
+    height: 35vh;
+}
+
+
+}
+
+
+

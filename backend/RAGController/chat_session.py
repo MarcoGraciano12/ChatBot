@@ -133,24 +133,28 @@ class ChatSession:
         Método para consultar el modelo de ollama.
         """
 
-        rag_response = "\n\n".join(self.db_manager.db_query(query, self._model_manager.get_selected_category(),
+        rag_response = "\n".join(self.db_manager.db_query(query, self._model_manager.get_selected_category(),
                                                             self._model_manager.get_k())[1])
 
         print(rag_response)
+        print(self._model_manager.get_level())
 
         try:
+
+            levels = ["Responde de manera breve y directa.",
+                      "Responde de manera normal y sin detallar demasiado.",
+                      "Responde de manera profunda y extensa."]
 
             response = self._model_manager.ollama_instance.client.chat(
                 model=self._model_manager.get_selected_model(),
                 messages=[
                     {'role': 'system',
-                     'content': 'Eres un asistente virtual inteligente. Responde de manera breve y directa.'},
+                     'content': f'Eres un asistente virtual de Grupo Fórmula. {levels[self._model_manager.get_level()]}'},
                     {'role': 'user', 'content': f"""
-Aquí tienes información relevante para responder la pregunta:
+Con base a un sistema de generación aumentada de recuperación obtendrás información relevante para responder a la pregunta,
+sin embargo, debes tomar en cuenta que no toda la información proporcionada es relevante:
 
-{rag_response}
-
-Con base en esta información, responde la siguiente pregunta de manera precisa y breve."""},
+{rag_response}"""},
                     {'role': 'user', 'content': query}
 
                 ],
