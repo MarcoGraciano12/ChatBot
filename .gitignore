@@ -279,3 +279,4 @@ pyrightconfig.json
 
 # Ignorar la base de datos del conocimiento
 backend/knowledge-base/
+knowledge-base/
