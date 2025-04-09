@@ -1,16 +1,31 @@
+"""
+Módulo encargado de la gestión de modelos locales de Ollama para su uso dentro del sistema RAG.
+
+Este módulo proporciona la clase `ModelManager`, que permite cargar, seleccionar y configurar modelos
+de lenguaje grande (LLM) instalados localmente a través de Ollama. También gestiona parámetros relacionados
+con la calidad de respuesta, la cantidad de coincidencias relevantes a recuperar (`k`) y la categoría o colección
+sobre la cual se realizarán las búsquedas.
+"""
 from RAGController.ollama_singleton import OllamaSingleton
 import ollama
 
 
 class ModelManager:
     """
-    Clase encargada de gestionar y aplicar la configuración personalizada
-    del usuario al modelo.
+    Clase para gestionar modelos LLM locales disponibles mediante Ollama y configurar sus parámetros de uso.
+
+    Esta clase permite:
+    - Cargar la lista de modelos instalados localmente.
+    - Seleccionar el modelo activo a utilizar.
+    - Establecer parámetros de configuración como:
+        - Nivel de precisión o profundidad en la respuesta del modelo.
+        - Número de resultados relevantes (`k`) que debe recuperar el sistema RAG.
+        - Categoría o colección temática para contextualizar las respuestas.
     """
 
     def __init__(self):
         # Se carga la lista de los modelos de Ollama disponibles.
-        self.__available_models = self.load_models()
+        self.__available_models = self.load_models()['content']
 
         # Variable para almacenar el modelo activo.
         self.__selected_model = None
@@ -30,14 +45,22 @@ class ModelManager:
     @staticmethod
     def load_models():
         """
-        Método destinado a obtener la lista de modelos de Ollama que se encuentran en
-        local.
+        Método encargado de retornar la lista de modelos de Ollama que se encuentran disponibles en local.
+
+        Returns:
+            dict: Un diccionario con el estado, mensaje y resultado de la operación.
+                - 'status' (bool): Estado de la operación.
+                - 'message' (str): Mensaje de éxito o error.
+                - 'content' (list): Lista con los modelos de Ollama disponibles.
         """
         try:
-            return [llm['model'] for llm in ollama.list()['models']]
+
+            return {'status': True, 'message': 'Se obtuvo de manera correcta la lista de modelos.',
+                    'content': [llm['model'] for llm in ollama.list()['models']]}
+
         except Exception as error:
-            print(f"Error al cargar la lista de modelos locales: {error}.")
-            return []
+            return {'status': False, 'message': f'Ocurrió un error al cargar la lista de modelos: {str(error)}.',
+                    'content': []}
 
     def get_list_models(self):
         """
@@ -47,16 +70,29 @@ class ModelManager:
         return self.__available_models
 
     def change_selected_model(self, index:int):
+        """
+        Método encargado de cambiar el modelo seleccionado para responder a las preguntas del usuario.
+
+        Args:
+            index (int): Indice que el modelo ocupa en la lista de modelos disponibles.
+
+        Returns:
+            dict: Un diccionario con el estado, mensaje y resultado de la operación.
+                - 'status' (bool): Estado de la operación.
+                - 'message' (str): Mensaje de éxito o error.
+        """
         try:
             if 0 <= index < len(self.__available_models):
                 # Se asigna el nuevo modelo activo
                 self.__selected_model = self.__available_models[index]
-                return True, f"Se ha activado el modelo {self.__available_models[index]}."
+                return {'status': True, 'message': f'Se ha activado el modelo {self.__available_models[index]}.'}
 
-            return False, f"El modelo seleccionado no se encuentra dentro de la lista de modelos disponibles."
+            # Si no se puede cambiar el modelo
+            return {'status': False,
+                    'message': 'El modelo seleccionado no se encuentra dentro de la lista de modelos disponibles.'}
+
         except Exception as error:
-            print(f">>> Error al cambiar el modelo activo: {error}.")
-            return False, "Ocurrió un error inesperado al intentar cambiar el modelo."
+            return {'status': False, 'message': f'Ocurrió´un error al intentar cambiar el modelo: {str(error)}'}
 
     def set_k(self, k:int):
         """
