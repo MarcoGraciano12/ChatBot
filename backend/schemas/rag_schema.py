@@ -18,4 +18,6 @@ class PlainQueryCollection(PlainChangeCategory):
 class PlainQueryModel(Schema):
     query = fields.Str(required=True)
 
-
+# Métodos experimentales para la gestión de modelos desde local
+class PlainModifyModel(Schema):
+    model = fields.Str(required=True)
