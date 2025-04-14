@@ -9,10 +9,6 @@ const micButton = document.querySelector('#micButton');
 let messageHistory = [];
 let historyIndex = -1;
 
-
-
-
-
 let recognition;
 let isRecording = false;
 let selectedCategorySelection = null;
@@ -141,7 +137,7 @@ async function validateModel() {
       
       const data = await response.json();
       if (!data.status) {
-          alert(data.response); // Mostrar mensaje de error al usuario
+          alert(data.message); // Mostrar mensaje de error al usuario
           return false;
       }
       return true;
@@ -209,78 +205,6 @@ async function handleStream() {
       alert('Hubo un problema al obtener la respuesta del modelo.');
   }
 }
-
-
-/* 
-//Función para recibir stream de respuesta
-async function handleStream() {
-
-  // URL de tu API de streaming
-  const apiUrl = 'http://127.0.0.1:5000/ollama';
-
-  // Crear el objeto con los parámetros dinámicos
-  const requestData = {
-    query: msgerInput.value,
-    category: selectedCategorySelection
-  };
-
-  console.log(">>> Query: ", msgerInput.value);
-  console.log(">>> Categoría seleccionada: ", selectedCategorySelection);
-
-  // Agregar los valores solo si existen
-  if (formatListSelection !== null) {
-    requestData.rag = formatListSelection + 1;
-    console.log(">>> RAG: ", formatListSelection + 1);
-  }
-  if (settingsSelection !== null) {
-    requestData.level = settingsSelection;
-    console.log(">>> Level: ", settingsSelection);
-  }
-
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestData)
-  });
-
-  if (!response.ok) {
-    throw new Error('Error en la solicitud');
-  }
-
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  let result = '';
-
-  // Crear una nueva burbuja para cada pregunta del usuario (sin sobreescribir la anterior)
-  appendMessage(BOT_NAME, BOT_IMG, 'left', ''); // Crea un mensaje vacío para la respuesta
-
-  // Obtener la nueva burbuja del bot
-  let botMessageElement = document.querySelector('.bot-msg:last-child');
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-
-    // Acumulamos el resultado
-    result += decoder.decode(value, { stream: true });
-
-    // Actualizamos el contenido del mensaje del bot
-    if (botMessageElement) {
-      const botMessageText = botMessageElement.querySelector('.msg-text');
-      if (botMessageText) {
-        botMessageText.innerHTML = result;  // Acumula el texto dentro de la misma burbuja
-      }
-    }
-
-    // Espera un breve momento para permitir la actualización del DOM y luego ajusta el scroll
-    await new Promise(resolve => setTimeout(resolve, 50));
-    msgerChat.scrollTop = msgerChat.scrollHeight;
-  }
-}
-
- */
 
 
 // Funcionalidad de Terminal 

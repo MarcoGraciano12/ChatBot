@@ -66,8 +66,8 @@ async function openTrainingSelectionModal() {
     createModal({
         title: 'Selección de Entrenamiento',
         message: 'Selecciona un entrenamiento para activarlo.',
-        options: trainings.response.map(t => ({ label: t, value: t })),
-        selectedValue: activeTraining.status ? activeTraining.response : '',
+        options: trainings.content.map(t => ({ label: t, value: t })),
+        selectedValue: activeTraining.status ? activeTraining.content : '',
         onApply: async (selected) => {
             console.log(`Aplicando entrenamiento: ${selected}`);
             await fetch('http://127.0.0.1:5000/collection', {
@@ -92,7 +92,7 @@ async function openResponseLevelModal() {
             { label: 'Normal', value: 1 },
             { label: 'Extenso', value: 2 }
         ],
-        selectedValue: responseLevel.status ? responseLevel.response : '',
+        selectedValue: responseLevel.status ? responseLevel.content : '',
         onApply: async (selected) => {
             console.log(`Aplicando nivel de respuesta: ${selected}`);
             await fetch('http://127.0.0.1:5000/level', {
@@ -113,7 +113,7 @@ async function openPrecisionModal() {
         title: 'Precisión del Modelo',
         message: 'Cuanto mayor sea la precisión, mayor será el tiempo de respuesta.',
         options: Array.from({ length: 20 }, (_, i) => ({ label: i + 1, value: i + 1 })),
-        selectedValue: precision.status ? precision.response : '',
+        selectedValue: precision.status ? precision.content : '',
         onApply: async (selected) => {
             console.log(`Aplicando precisión: ${selected}`);
             await fetch('http://127.0.0.1:5000/rag-k', {
@@ -135,10 +135,10 @@ async function openModelSelectionModal() {
     createModal({
         title: 'Selección de Modelo',
         message: 'Selecciona un modelo para activarlo.',
-        options: models.response.map((m, index) => ({ label: m, value: index })),
-        selectedValue: activeModel.status ? models.response.indexOf(activeModel.response) : '',
+        options: models.content.map((m, index) => ({ label: m, value: index })),
+        selectedValue: activeModel.status ? models.content.indexOf(activeModel.content) : '',
         onApply: async (selected) => {
-            console.log(`Aplicando modelo: ${models.response[selected]}`);
+            console.log(`Aplicando modelo: ${models.content[selected]}`);
             await fetch('http://127.0.0.1:5000/model', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -147,10 +147,6 @@ async function openModelSelectionModal() {
         }
     });
 }
-
-
-
-
 
 const change_category = document.querySelector('#category');
 
@@ -309,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             console.log("Respuesta del servidor:", data);
-            alert(data.response);
+            alert(data.message);
             sendButton.disabled = false;
         })
         .catch(error => {
@@ -336,7 +332,7 @@ async function loadTrainings() {
         const select = document.getElementById("trainingSelect");
         select.innerHTML = ""; // Limpiar opciones previas
         
-        data.response.forEach(training => {
+        data.content.forEach(training => {
             const option = document.createElement("option");
             option.value = training;
             option.textContent = training;
