@@ -17,6 +17,8 @@ Blueprint:
 from flask.views import MethodView
 from flask_smorest import Blueprint
 from flask import request
+from transformers.models.auto.modeling_flax_auto import FLAX_MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING_NAMES
+
 from schemas import rag_schema
 from flask import Response
 from RAGController.chat_session import ChatSession
@@ -71,6 +73,18 @@ class ModelManager(MethodView):
             return {'status': False, 'message': "El indice debe ser mayor a cero."}
 
         return manager.change_model(index)
+
+    @blp.arguments(rag_schema.PlainModifyModel)
+    def delete(self, data):
+
+        model = data['model']
+
+        return manager.delete_model(llm_name=model)
+
+    @blp.arguments(rag_schema.PlainModifyModel)
+    def put(self, data):
+        model = data['model']
+        return Response(manager.download_model(ll_name=model), mimetype='text/event-stream')
 
 
 @blp.route("/collection")
