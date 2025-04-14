@@ -1,10 +1,7 @@
 from flask import Flask
 from flask_smorest import Api
-# from resources.RAGController import blp as RAGBlueprint
-# from resources.chatbot_manager import blp as ChatBotBluePrint
-# from resources.endpoints import blp as ChatMagener
-from flask_cors import CORS  # Importamos CORS
-from resources.rag_endpoints import blp as RAG
+from flask_cors import CORS
+from resources.rag_endpoints import blp as rag
 app = Flask(__name__)
 
 CORS(app)
@@ -19,7 +16,4 @@ app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-
 
 api = Api(app)
 
-# api.register_blueprint(RAGBlueprint)
-# api.register_blueprint(ChatBotBluePrint)
-# api.register_blueprint(ChatMagener)
-api.register_blueprint(RAG)
+api.register_blueprint(rag)
