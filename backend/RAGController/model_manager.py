@@ -7,7 +7,6 @@ con la calidad de respuesta, la cantidad de coincidencias relevantes a recuperar
 sobre la cual se realizarán las búsquedas.
 """
 from RAGController.ollama_singleton import OllamaSingleton
-import ollama
 
 
 class ModelManager:
@@ -24,14 +23,15 @@ class ModelManager:
     """
 
     def __init__(self):
-        # Se carga la lista de los modelos de Ollama disponibles.
-        self.__available_models = self.load_models()['content']
 
         # Variable para almacenar el modelo activo.
         self.__selected_model = None
 
         # Se obtiene la instancia de Ollama.
         self.ollama_instance = OllamaSingleton()
+
+        # Se carga la lista de los modelos de Ollama disponibles.
+        self.__available_models = self.load_models()['content']
 
         # Se establece por defecto la cantidad de coincidencias del RAG a obtener.
         self._k = 1
@@ -42,8 +42,8 @@ class ModelManager:
         # Variable para gestionar la colección sobre la cual se realizarán las búsquedas.
         self._category = None
 
-    @staticmethod
-    def load_models():
+
+    def load_models(self):
         """
         Método encargado de retornar la lista de modelos de Ollama que se encuentran disponibles en local.
 
@@ -56,7 +56,7 @@ class ModelManager:
         try:
 
             return {'status': True, 'message': 'Se obtuvo de manera correcta la lista de modelos.',
-                    'content': [llm['model'] for llm in ollama.list()['models']]}
+                    'content': [llm['model'] for llm in self.ollama_instance.client.list()['models']]}
 
         except Exception as error:
             return {'status': False, 'message': f'Ocurrió un error al cargar la lista de modelos: {str(error)}.',
