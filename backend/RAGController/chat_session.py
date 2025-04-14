@@ -19,6 +19,7 @@ Requiere los módulos:
 from RAGController.model_manager import ModelManager
 from RAGController.chroma_db_manager import ChromaDBManager
 import re
+import json
 
 
 class ChatSession:
@@ -344,4 +345,16 @@ class ChatSession:
         except Exception as error:
             yield (f'Lo siento, ocurrió un problema de tipo {str(error)} al procesar tu pregunta. '
                    f'Por favor, intenta de nuevo.')
+
+    # Métodos experimentales para la gestión de modelos desde local
+    def delete_model(self, llm_name: str):
+        return self._model_manager.delete_model(llm_name)
+
+    def download_model(self, ll_name: str):
+        try:
+            for chunk in self._model_manager.download_model(llm_name=ll_name):
+                yield f"data: {chunk}\n\n"
+        except Exception as e:
+            yield f"data: {json.dumps({'status': False, 'message': f'Error: {str(e)}'})}\n\n"
+
 

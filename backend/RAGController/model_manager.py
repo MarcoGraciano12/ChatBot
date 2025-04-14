@@ -7,7 +7,8 @@ con la calidad de respuesta, la cantidad de coincidencias relevantes a recuperar
 sobre la cual se realizarán las búsquedas.
 """
 from RAGController.ollama_singleton import OllamaSingleton
-
+import json
+import requests
 
 class ModelManager:
     """
@@ -138,3 +139,87 @@ class ModelManager:
         Método para retornar el nivel de respueta del modelo.
         """
         return self._level
+
+    # Métodos experimentales para la gestión de modelos desde local
+
+    def delete_model(self, llm_name: str):
+        """
+        Método encargado de eliminar un modelo de la lista de modelos disponibles en local.
+
+        Args:
+            llm_name (str): Nombre del modelo a eliminar.
+
+        Returns:
+            dict: Un diccionario con el estado, mensaje y resultado de la operación.
+                - 'status' (bool): Estado de la operación.
+                - 'message' (str): Mensaje de éxito o error.
+        """
+
+        try:
+            if llm_name not in self.__available_models:
+                return {'status': False, 'message': f'El modelo {llm_name} no se encuentra descargado.'}
+
+            # Se elimina el modelo
+            self.ollama_instance.client.delete(llm_name)
+
+            # Se actualiza la lista
+            self.__available_models.remove(llm_name)
+
+            return {'status': True, 'message': f'Se eliminó de forma correcta al modelo {llm_name}.'}
+
+        except Exception as error:
+            return {'status': False,
+                    'message': f'No se logró eliminar el modelo {llm_name}, se presentó el error: {str(error)}.'}
+
+
+    def download_model(self, llm_name: str):
+        try:
+            if llm_name in self.__available_models:
+                yield json.dumps({
+                    'status': False,
+                    'message': f'El modelo {llm_name} ya está instalado.'
+                })
+                return
+
+
+            response = requests.post('http://localhost:11434/api/pull',
+                                     json={'name': llm_name},
+                                     stream=True)
+
+            # Esto levantará una excepción si el status no es 200.
+            response.raise_for_status()
+            # if response.status_code != 200:
+            #     yield json.dumps({'status': False, 'message': f'Error al iniciar la descarga del modelo {llm_name}'})
+            #     return
+
+            for line in response.iter_lines():
+                if line:
+                    try:
+                        data = json.loads(line.decode('utf-8'))
+                        status = data.get('status')
+                        total = data.get('total', 0)
+                        completed = data.get('completed', 0)
+                        porcentaje = (completed / total * 100) if completed and total else None
+                        yield json.dumps({
+                            'status': True,
+                            'message': status,
+                            'progress': f'{porcentaje:.2f}%' if porcentaje else None
+                        })
+                        print(status, total, completed,porcentaje)
+                    except json.JSONDecodeError:
+                        yield json.dumps({'status': False, 'message': 'Error al procesar una línea del stream'})
+                    except KeyError:
+                        yield json.dumps({'status': False, 'message': 'Datos incompletos en la línea del stream'})
+
+            # Se agrega el modelo a la lista de modelos disponibles
+            self.__available_models.append(llm_name)
+            yield json.dumps({'status': True, 'message': f'Modelo {llm_name} instalado correctamente.'})
+
+
+        except requests.RequestException as req_error:
+            yield json.dumps({'status': False, 'message': f'Error de solicitud: {str(req_error)}'})
+        except json.JSONDecodeError as json_error:
+            yield json.dumps({'status': False, 'message': f'Error en la respuesta JSON: {str(json_error)}'})
+        except Exception as error:
+            yield json.dumps({'status': False,
+                              'message': f'Se presentó un error inesperado: {str(error)}'})
