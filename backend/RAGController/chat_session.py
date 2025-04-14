@@ -299,13 +299,6 @@ class ChatSession:
 
         try:
 
-            # Recuperación de contexto relevante
-            # content_chunks = self.db_manager.db_query(query,
-            #                                           self._model_manager.get_selected_category(),
-            #                                           self._model_manager.get_k())['content']
-
-            # rag_response = "\n\n- ".join(chunk.strip() for chunk in content_chunks)
-
             rag_response = "\n\n- ".join(
                 [re.sub(r'\s+', ' ', chunk.strip())
                  for chunk in self.db_manager.db_query(query,
@@ -313,15 +306,6 @@ class ChatSession:
                                                        self._model_manager.get_k())['content']])
 
             print(rag_response)
-
-            #
-            #
-            # rag_response = "\n\n- ".join(self.db_manager.db_query(query,
-            #                                                   self._model_manager.get_selected_category(),
-            #                                                   self._model_manager.get_k())['content'])
-            #
-            # print(rag_response)
-            # print(self._model_manager.get_level())
 
             # Definición del nivel de respuesta
             levels = ["de manera breve, directa y resumida.",
@@ -331,30 +315,20 @@ class ChatSession:
 
             level_text = levels[self._model_manager.get_level()]
 
-            # levels = ["de manera breve, directa y resumida.",
-            #           "sin detallar demasiado.",
-            #           "de manera profunda y extensa."]
-
-            # custom_query = [
-            #     {'role': 'system', 'content': 'Tu nombre es Tomás, eres un asistente virtual que pertenece a '
-            #                                   'Grupo Fórmula.'},
-            #     {'role': 'user', 'content': f'Con base a un sistema de generación aumentada de recuperación obtendrás '
-            #                                 f'información relevante para responder a la pregunta del usuario, sin '
-            #                                 f'embargo, debes tomar en cuenta que no toda la información proporcionada '
-            #                                 f'es relevante. La información recuperada es: \n\n{rag_response}'},
-            #     {'role': 'user', 'content': f'La pregunta del usuario a la que debes responder '
-            #                                 f'({levels[self._model_manager.get_level()]}) es: {query}'}
-            # ]
-
             # Prompt para el modelo
             custom_query = [
                 {'role': 'system', 'content': (
-                    'Tu nombre es Tomás, eres un asistente virtual que pertenece a Grupo Fórmula. '
-                    'Usarás información recuperada mediante RAG para responder de forma coherente y útil. '
-                    'Ignora información irrelevante si no ayuda a responder. '
-                    f'Nivel de detalle requerido: {level_text}'
+                    'Tu nombre es Natalia. Eres una asistente virtual que trabaja para Grupo Fórmula. '
+                    'Tu función es ayudar al usuario generando una respuesta clara, útil y fundamentada únicamente con base en el contexto proporcionado. '
+                    'No debes mencionar que tu respuesta proviene de un contexto recuperado ni dar detalles sobre tu funcionamiento interno. '
+                    'No inventes información. Si el contexto no contiene datos suficientes para responder, simplemente indica que no cuentas con información al respecto. '
+                    f'Responde al usuario con el siguiente nivel de detalle: {level_text}. '
                 )},
-                {'role': 'user', 'content': f'Información recuperada:\n\n{rag_response}'},
+                {'role': 'user', 'content': (
+                    'Este es el contexto que te ayudará a generar una respuesta:\n\n'
+                    f'{rag_response}\n\n'
+
+                )},
                 {'role': 'user', 'content': f'Pregunta del usuario: {query}'}
             ]
 
