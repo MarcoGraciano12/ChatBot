@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama</title>
+
+    <!-- Estilos personalizados -->
+     <link rel="stylesheet" href="CSS/font_style.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/training_style.css">
+    <link rel="stylesheet" href="CSS/models_style.css">
+
+    <!-- Estilo de modales personalizados -->
+     <link rel="stylesheet" href="CSS/custom_modals.css">
+
+    <!-- Iconos de Google -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header-container">
+
+        <div>
+            <span class="material-symbols-outlined " data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
+                aria-expanded="false" aria-controls="collapseWidthExample">
+                menu
+            </span>
+        </div>
+
+        <div>
+            <h1 class="dm-serif-text-regular">
+                NextAI Solutions
+            </h1>
+        </div>
+
+    </header>
+
+    <main class="contenedor-principal">
+
+        <section class="contenedor-menu">
+
+            <div class="menu" id="chatbot">
+                <span class="material-symbols-outlined">
+                    chat
+                </span>
+
+                <p class="tinos-regular">Chatbot</p>
+            </div>
+
+            <div class="menu" id="entrenar">
+                <span class="material-symbols-outlined">
+                    model_training
+                </span>
+
+                <p class="tinos-regular">Entrenar</p>
+            </div>
+
+            <div class="menu" id="modelos">
+                <span class="material-symbols-outlined">
+                    network_intelligence
+                    </span>
+
+                <p class="tinos-regular">Modelos</p>
+            </div>
+
+        </section>
+
+        <section class="contenedor-apartado">
+
+            <!-- ==================================================================================== -->
+            <!--                                Apartado del Chatbot                                  -->
+            <!-- ==================================================================================== -->
+            
+            <div class="chat opcion1">
+                <section class="msger-header chatbot">
+                    <div class="msger-header-options">
+    
+                        <div class="option" id="category">
+                            <span class="material-symbols-outlined">
+                                file_copy
+                            </span>
+                            <p class="tooltip tinos-regular">Seleccionar Entrenamiento</p>
+                        </div>
+    
+                        <div class="option" id="level">
+                            <span class="material-symbols-outlined">
+                                candlestick_chart
+                            </span>
+                            <p class="tooltip tinos-regular">Nivel de Respuesta</p>
+                        </div>
+    
+                        <div class="option" id="rag">
+                            <span class="material-symbols-outlined">
+                                format_list_numbered
+                            </span>
+                            <p class="tooltip tinos-regular">Precisión</p>
+                        </div>
+    
+                        <div class="option" id="model">
+                            <span class="material-symbols-outlined">
+                                graph_4
+                            </span>
+                            <p class="tooltip tinos-regular">Seleccionar Modelo</p>
+                        </div>
+    
+                        <div class="option" id="clean">
+                            <span class="material-symbols-outlined">
+                                cleaning_services
+                            </span>
+                            <p class="tooltip tinos-regular">Limpiar Chat</p>
+                        </div>
+    
+                    </div>
+                </section>
+    
+                <section class="msger-chat chatbot">
+                    <div class="msg left-msg">
+                        <div class="msg-img"
+                            style="background-image: url(https://plus.unsplash.com/premium_vector-1727952230168-809436181c0c?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+                        </div>
+    
+                        <div class="msg-bubble">
+                            <div class="msg-info">
+                                <div class="msg-info-name tinos-bold">Asistente</div>
+                                <div class="msg-info-time"></div>
+                            </div>
+    
+                            <div class="tinos-regular">
+                                Hola, ¡Bienvenido al ChatBot de NextAI Solutions! 😄
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    
+                <form class="msger-inputarea chatbot">
+                    <input type="text" class="msger-input tinos-regular" placeholder="Pregunta lo que quieras..."
+                        id="msgerInput" autocomplete="off">
+    
+                    <button type="submit" class="msger-send-btn">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+    
+                    <button type="button" class="msger-send-btn" id="micButton">
+                        <span class="material-symbols-outlined">mic</span>
+                    </button>
+                </form>
+            </div>
+
+
+            <!-- ==================================================================================== -->
+            <!--                                Apartado de Entrenamiento                             -->
+            <!-- ==================================================================================== -->
+
+            <div class="tools opcion2">
+                
+                <div class="tools-container flex-column">
+
+                    <div>
+                        <h2 class="tinos-bold">Seleccionar Documento</h2>
+                    </div>
+
+                    <div class="flex-row align-row">
+                        <div class="flex-column">
+                            <p class="tinos-regular">Selecciona un modelo de la lista y presiona el botón de eliminar para desinstalarlo.</p>
+                        </div>
+    
+                        <div class="flex-column align-col">
+                           
+                            <button class="msger-send-btn tinos-bold" id="open-modal">Subir</button>
+                            <button class="msger-send-btn tinos-bold" id="clear-selection">Retirar</button>
+                            
+                        </div>
+                    </div>
+
+                </div>
+    
+                <div class="tools-container flex-column">
+                    
+                    <div>
+                        <h2 class="tinos-bold">Eliminar un Entrenamiento</h2>
+                    </div>
+
+                    <div class="flex-row align-row">
+                        <div class="flex-column">
+                            <p class="tinos-regular">Selecciona un modelo de la lista y presiona el botón de eliminar para desinstalarlo.</p>
+                        </div>
+    
+    
+                        <div class="flex-column align-col">
+                            <div class="container-widget flex-column">
+                                <!-- <h3 class="tinos-regular">Selecciona el entrenamiento</h3> -->
+                                <select name="" id="trainingSelect" class="tinos-regular">
+                                    <option value="" disabled selected>Entrenamientos</option>
+                                </select>
+                            </div>
+    
+                            <div class="container-widget flex-column">
+                                <!-- <button class="msger-send-btn tinos-bold" id="update-button">Actualizar</button> -->
+                                <button class="msger-send-btn tinos-bold" id="delete-button">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+    
+                </div>
+
+                <div class="tools-container flex-column">
+                    
+                    <div>
+                        <h2 class="tinos-bold">Crear Entrenamiento</h2>
+                    </div>
+
+                    <div class="flex-row align-row">
+                        <div class="flex-column">
+                            <p class="tinos-regular">Selecciona un modelo de la lista y presiona el botón de eliminar para desinstalarlo.</p>
+                        </div>
+    
+                        <div class="flex-column align-col">
+                            <div class="container-widget flex-column">
+                                <!-- <h3 class="tinos-regular">Ingresa el nombre del entrenamiento</h3> -->
+                                <input type="text" placeholder="Ingresa el Nombre" class="tinos-regular" id="train-name">
+                            </div>
+    
+                            <div class="container-widget flex-column">
+                                <button class="msger-send-btn tinos-bold" id="send-data">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+
+                </div>
+
+            </div>
+
+            <!-- ==================================================================================== -->
+            <!--                                Apartado de Modelos                                   -->
+            <!-- ==================================================================================== -->
+
+            <div class="cards-container opcion3">
+
+                <!-- Para la eliminación de modelos -->
+                <div class="card">
+                    <div>
+                        <h3 class="dm-serif-text-regular">Eliminar Modelo</h3>
+                    </div>
+                    
+                    <div>
+                        <p class="tinos-regular-italic">Selecciona al modelo que deseas eliminar y presiona el botón de "Eliminar" para desinstalar el modelo de tu equipo.</p>
+                    </div>
+
+                    <div class="row-distribution">
+                        <select name="" id="" class="input-box"></select>
+                        <button class="btn tinos-bold">Eliminar</button>
+                    </div>
+                </div>
+
+                <!-- Para la descarga de modelos -->
+                <div class="card">
+                    <div>
+                        <h3 class="dm-serif-text-regular">Descargar Modelo</h3>
+                    </div>
+                    
+                    <div>
+                        <p class="tinos-regular-italic">Selecciona un modelo para ver su descripción y presiona "Descargar" para instalar el modelo en tu equipo.</p>
+                    </div>
+
+                    <div class="row-distribution">
+                        <select name="" id="" class="input-box"></select>
+                        <button class="btn tinos-bold">Descargar</button>
+                    </div>
+
+                    <div>
+                        <hr>
+                        <p class="text-container tinos-regular-italic">
+                            Descripción del Modelo
+                        </p>
+                        <hr>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="JS/script.js"></script>
+
+    <!-- Funcionamiento de los modales personalizados -->
+     <script src="JS/custom_modals.js"></script>
+
+</body>
+
+</html>

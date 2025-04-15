@@ -232,41 +232,64 @@ msgerInput.addEventListener('keydown', event => {
 // ===============================================================================================================================
 //                                                     Funcionalidad de Entrenamiento
 // ===============================================================================================================================
-document.getElementById('chatbot').addEventListener('click', function() {
-  var chats = document.getElementsByClassName("opcion1");
-  var tools = document.getElementsByClassName("opcion2")[0];
+// document.getElementById('chatbot').addEventListener('click', function() {
+//   var chats = document.getElementsByClassName("opcion1");
+//   var tools = document.getElementsByClassName("opcion2")[0];
 
-  let chatsVisibles = Array.from(chats).some(chat => chat.style.display !== 'none' && chat.style.display !== '');
+//   let chatsVisibles = Array.from(chats).some(chat => chat.style.display !== 'none' && chat.style.display !== '');
 
-  if (chatsVisibles) {
-      // Si hay chats visibles, ocultarlos
-      Array.from(chats).forEach(chat => chat.style.display = 'none');
-  } else {
-      // Si están ocultos, mostrarlos
-      Array.from(chats).forEach(chat => chat.style.display = '');
+//   if (chatsVisibles) {
+//       // Si hay chats visibles, ocultarlos
+//       Array.from(chats).forEach(chat => chat.style.display = 'none');
+//   } else {
+//       // Si están ocultos, mostrarlos
+//       Array.from(chats).forEach(chat => chat.style.display = '');
+//   }
+
+//   // No ocultar herramientas si ya están visibles en otra acción
+//   if (tools.style.display !== 'none') {
+//       tools.style.display = 'none';
+//   }
+// });
+
+// document.getElementById('entrenar').addEventListener('click', function() {
+//   var chats = document.getElementsByClassName("opcion1");
+//   var tools = document.getElementsByClassName("opcion2")[0];
+
+//   let toolsVisible = tools.style.display !== 'none' && tools.style.display !== '';
+
+//   // Siempre ocultamos los chats al entrenar
+//   Array.from(chats).forEach(chat => chat.style.display = 'none');
+
+//   // Alternamos la visibilidad de tools
+//   tools.style.display = 'flex';
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const chatbotBtn = document.getElementById("chatbot");
+  const entrenarBtn = document.getElementById("entrenar");
+  const modelosBtn = document.getElementById("modelos");
+
+  const secciones = {
+      opcion1: document.querySelectorAll(".opcion1"),
+      opcion2: document.querySelectorAll(".opcion2"),
+      opcion3: document.querySelectorAll(".opcion3")
+  };
+
+  function mostrar(opcion) {
+      // Oculta todas las secciones primero
+      Object.values(secciones).forEach(nodos => {
+          nodos.forEach(nodo => nodo.style.display = "none");
+      });
+
+      // Muestra solo la opción seleccionada
+      secciones[opcion].forEach(nodo => nodo.style.display = "flex");
   }
 
-  // No ocultar herramientas si ya están visibles en otra acción
-  if (tools.style.display !== 'none') {
-      tools.style.display = 'none';
-  }
+  chatbotBtn.addEventListener("click", () => mostrar("opcion1"));
+  entrenarBtn.addEventListener("click", () => mostrar("opcion2"));
+  modelosBtn.addEventListener("click", () => mostrar("opcion3"));
+
+  // Opcional: Mostrar solo la primera opción al cargar la página
+  mostrar("opcion1");
 });
-
-document.getElementById('entrenar').addEventListener('click', function() {
-  var chats = document.getElementsByClassName("opcion1");
-  var tools = document.getElementsByClassName("opcion2")[0];
-
-  let toolsVisible = tools.style.display !== 'none' && tools.style.display !== '';
-
-  // Siempre ocultamos los chats al entrenar
-  Array.from(chats).forEach(chat => chat.style.display = 'none');
-
-  // Alternamos la visibilidad de tools
-  tools.style.display = 'flex';
-});
-
-
-
-
-
-

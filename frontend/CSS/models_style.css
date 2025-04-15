@@ -1,0 +1,143 @@
+.cards-container{
+    width: 85%;
+    /* background-color: red; */
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content; */
+    overflow-y: auto;
+}
+
+.cards-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cards-container::-webkit-scrollbar-track {
+    background: whitesmoke;
+}
+
+.cards-container::-webkit-scrollbar-thumb {
+    background: #023859;
+}
+
+
+.card{
+     background: whitesmoke;
+     /* background-color: yellowgreen; */
+     color: var(--shadow);
+     box-shadow: var(--shadows);
+     margin: 1rem;
+     width: 75%;
+     /* min-height: 40%; */
+     height: auto;
+     
+     padding: 5%;
+
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+
+     text-align: center;
+}
+
+.card div{
+    /* background-color: yellowgreen; */
+    margin: 2%;
+    width: 100%;
+}
+
+.card h3{
+    padding: 0;
+    margin: 0;
+}
+
+.card p{
+    padding:0;
+    margin: 0;
+}
+
+.row-distribution{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+
+/* Estilo para los botones */
+.btn {
+    width: 40%;
+    height: 100%;
+    padding: 8px;
+    border: none; 
+    box-shadow: var(--shadow-active);
+    cursor: pointer;
+    background-color: #023859;
+    transition: all 0.2s ease-in-out 0ms;
+    user-select: none;
+    font-family: 'Poppins', sans-serif;
+    color: whitesmoke;
+    text-transform: uppercase;
+  }
+  
+.btn:active {
+    transform: scale(0.95);
+}
+/* Fin de estilo para botones */
+
+/* Estilos para los inputs*/
+.input-box {
+    width: 40%;
+    height: 100%;
+    background-color: #023859;
+    color: whitesmoke;
+    padding: .15rem .5rem;
+    outline: none;
+    border: none;
+    line-height: 1.15;
+    box-shadow: var(--shadow-active);
+  }
+  
+.input-box:focus {
+    border-bottom: 2px solid whitesmoke;
+    border-radius: 4px 4px 2px 2px;
+  }
+  
+.input-box:hover {
+    outline: none;
+  }
+
+/* Fin de estilo para los inputs */
+
+/* Estilo para el elemento que muestra la descripción de la selección */
+
+.text-container{
+    /* background-color: red; */
+    height: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fin del para el elemento que muestra la descripción de la selección */
+
+.card:hover {
+    box-shadow: var(--shadow-active);
+}
+
+.small-card{
+    /* height: 20%; */
+}
+
+.big-card{
+    height: 80;
+}
+
+hr{
+    border: 2px solid #023859;
+    width: 100%;
+}
